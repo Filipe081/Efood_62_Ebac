@@ -1,72 +1,40 @@
-import MockUpList from '../../assets/components/Body/MockUpList'
-import Banner from '../../assets/components/Header/Banner'
-import Header from '../../assets/components/Header/Home'
+import { useParams } from 'react-router-dom'
+import Header from '../../components/Header'
+import Apresentacao from '../../components/Apresentacao'
+import FoodList from '../../components/FoodList'
+import Footer from '../../components/Footer'
+import { useGetRestaurantSelectedQuery } from '../../services/api'
+import Cart from '../../components/Cart'
+import Loader from '../../components/Loader'
 
-import ImgPizzaSrc from '../../assets/images/pizza.png'
-import Efood from '../../models/Efood'
+type RestaurantParams = {
+  id: string
+}
 
-const ListaRestaurantMenu: Efood[] = [
-  {
-    id: 1,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
-  },
-  {
-    id: 2,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
-  },
-  {
-    id: 3,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
-  },
-  {
-    id: 4,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
-  },
-  {
-    id: 5,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
-  },
-  {
-    id: 6,
-    title: 'Pizza Marguerita',
-    description:
-      'A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite. Sabor e simplicidade!',
-    infos: [''],
-    nota: '',
-    image: ImgPizzaSrc
+const Perfil = () => {
+  const { id } = useParams() as RestaurantParams
+  const { data: restaurantFood } = useGetRestaurantSelectedQuery(id)
+
+  if (restaurantFood) {
+    return (
+      <>
+        <Header />
+        <Apresentacao restaurant={restaurantFood} />
+        <FoodList
+          restaurant={restaurantFood}
+          pedido={{
+            id: 0,
+            nome: '',
+            foto: '',
+            preco: 0
+          }}
+        />
+        <Footer />
+        <Cart />
+      </>
+    )
   }
-]
+  return <Loader />
+}
 
-const Perfil = () => (
-  <>
-    <Header background={'dark'} />
-    <Banner />
-    <MockUpList title="" background={'dark'} efoods={ListaRestaurantMenu} />
-  </>
-)
 export default Perfil

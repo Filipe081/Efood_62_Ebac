@@ -1,71 +1,21 @@
-import MockUpList from '../../assets/components/Body/MockUpList'
-import Header from '../../assets/components/Header/Home'
-import ImgTrattoriaSrc from '../../assets/images/image1.png'
-import ImgSushiSrc from '../../assets/images/imagem.png'
+import Footer from '../../components/Footer'
+import Hero from '../../components/Hero'
+import Loader from '../../components/Loader'
+import RestaurantList from '../../components/RestaurantList'
+import { useGetRestaurantsQuery } from '../../services/api'
 
-import Efood from '../../models/Efood'
+const Home = () => {
+  const { data: restaurants } = useGetRestaurantsQuery()
 
-const ListaRestaurant: Efood[] = [
-  {
-    id: 1,
-    title: 'Hioki Sushi',
-    description:
-      'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!',
-    infos: ['Destaque da semana', 'Japonesa'],
-    nota: '4.9',
-    image: ImgSushiSrc
-  },
-  {
-    id: 2,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    infos: ['Italiana'],
-    nota: '4.6',
-    image: ImgTrattoriaSrc
-  },
-  {
-    id: 3,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    infos: ['Italiana'],
-    nota: '4.6',
-    image: ImgTrattoriaSrc
-  },
-  {
-    id: 4,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    infos: ['Italiana'],
-    nota: '4.6',
-    image: ImgTrattoriaSrc
-  },
-  {
-    id: 5,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    infos: ['Italiana'],
-    nota: '4.6',
-    image: ImgTrattoriaSrc
-  },
-  {
-    id: 6,
-    title: 'La Dolce Vita Trattoria',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!',
-    infos: ['Italiana'],
-    nota: '4.6',
-    image: ImgTrattoriaSrc
+  if (restaurants) {
+    return (
+      <>
+        <Hero />
+        <RestaurantList restaurants={restaurants} />
+        <Footer />
+      </>
+    )
   }
-]
-
-const Home = () => (
-  <>
-    <Header background={'light'} />
-    <MockUpList title="" background={'light'} efoods={ListaRestaurant} />
-  </>
-)
+  return <Loader />
+}
 export default Home
